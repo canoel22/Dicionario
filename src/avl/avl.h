@@ -27,8 +27,10 @@ typedef struct arvoreAVL
 ArvoreAVL* criaArvore();
 NoAVL* criaNo();
 
+NoAVL* buscar();
 void inserir ();
 void remover (NoAVL *r, char* palavra);
+
 void balanceamento(NoAVL* no);
 void rotacionarLL(NoAVL* d);
 void rotacionarRR(NoAVL* d);
