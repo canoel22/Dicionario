@@ -27,9 +27,9 @@ NoAVL *criaNo(char letra)
 
 /********************************* Buscar ***********************************************/
 
-NoAVL *buscar(NoAVL *aux, char* letra)
+NoAVL *buscar(NoAVL *aux, char letra)
 {
-    if (aux == NULL || strcmp(letra, aux->letra))
+    if (aux == NULL || letra == aux->letra)
     {
         return aux;
     }
@@ -41,7 +41,7 @@ NoAVL *buscar(NoAVL *aux, char* letra)
 }
 /********************************* Inserir ***********************************************/
 
-void inserir(ArvoreAVL* arvore, char* letra )
+void inserir(ArvoreAVL* arvore, char letra )
 {
     NoAVL* x = arvore -> raiz;
     NoAVL* y = NULL;

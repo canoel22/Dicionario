@@ -28,8 +28,8 @@ typedef struct arvoreAVL
 ArvoreAVL* criaArvore();
 NoAVL* criaNo(char letra);
 
-NoAVL *buscar(NoAVL *aux, char* letra);
-void inserir(ArvoreAVL* arvore, char* letra );
+NoAVL *buscar(NoAVL *aux, char letra);
+void inserir(ArvoreAVL* arvore, char letra );
 void remover(NoAVL *r, char *palavra);
 
 void balanceamento(ArvoreAVL* arvore, NoAVL *no);
