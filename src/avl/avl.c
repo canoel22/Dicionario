@@ -21,6 +21,7 @@ NoAVL *criaNo(char letra)
     no->letra = letra;
     no->palavras = criaLista();
     no->fb = 0;
+    no->altura = 0;
     return no;
 }
 
@@ -28,7 +29,7 @@ NoAVL *criaNo(char letra)
 
 NoAVL *buscar(NoAVL *aux, char* letra)
 {
-    if (aux == NULL || letra == aux->letra)
+    if (aux == NULL || strcmp(letra, aux->letra))
     {
         return aux;
     }
@@ -64,8 +65,18 @@ void inserir(ArvoreAVL* arvore, char* letra )
         y -> dir = novoNo;
     }
 
+    NoAVL* aux = novoNo -> pai;
 
-    balanceamento (arvore, novoNo->pai);
+    while (aux != NULL){
+    
+        int altura_esq = altura(aux -> esq);
+        int altura_dir = altura(aux -> dir);
+
+        atualizaAltura(aux, altura_esq, altura_dir);
+        atualizaFB(aux, altura_esq, altura_dir);
+        balanceamento (arvore, aux);
+        aux = aux -> pai;
+    }
 
 }
 
@@ -98,10 +109,39 @@ void balanceamento(ArvoreAVL* arvore, NoAVL *no)
     }
 }
 
-/*************************** Atualiza o FB e as alturas *****************************************/
+/*************************** Atualiza o FB *****************************************/
 
-void atualizaFB(ArvoreAVL* arvore, NoAVL *no){
+void atualizaFB(NoAVL* no, int altura_esq, int altura_dir)
+{
+    no -> fb = altura_dir - altura_esq;
+}
 
+/*************************** Atualiza a altura *****************************************/
+
+void atualizaAltura(NoAVL* no, int altura_esq, int altura_dir)
+{
+    no -> altura = 1 + maior(altura_esq, altura_dir);
+
+}
+
+/*************************** Vê a altura do nó *****************************************/
+
+int altura(NoAVL* no)
+{
+  if (no != NULL){
+    return no->altura;
+  }
+  return -1;
+}
+
+/*************************** Vê qual é o maior entre dois valores *****************************************/
+
+int maior(int a, int b)
+{
+    if (a > b){
+        return a;
+    }
+    return b;
 }
 
 /********************************* Rotação LL ***********************************************/
