@@ -47,9 +47,10 @@ void percurso_emordem(NoAVL* raiz) {
     return;
   }
 
-  percurso_preordem(raiz -> esq);
-  printf("[nó: %c, pai: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->pai->letra, raiz->fb, raiz->altura + 1);
-  percurso_preordem(raiz -> dir);
+  percurso_emordem(raiz -> esq);
+  printf("Nó: %c\n",raiz->letra);
+  printarLista(raiz->palavras);
+  percurso_emordem(raiz -> dir);
 }
 
 /********************************* Buscar ***********************************************/

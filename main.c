@@ -7,21 +7,7 @@
 int main()
 {
     Dicionario* dicionario = criaDicionario();
-    char letra;
-    char* palavra;
+    char palavra[50];
 
-    tela_inicial(dicionario, palavra, letra);
-
-/*
-    inserirDicionario(dicionario, "abacate");
-    inserirDicionario(dicionario, "banana");
-
-    buscarDicionario(dicionario, "abacate");
-    //buscarDicionario(dicionario, "batata");
-
-    removerDicionario(dicionario, "abacate");
-    //printaDicionario(dicionario);
-
-*/
-
+    tela_inicial(dicionario, palavra);
 }

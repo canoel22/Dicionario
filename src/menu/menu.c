@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "menu.h"
 #include "../lista/lista.h"
 #include "../avl/avl.h"
@@ -8,12 +9,12 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Dicionario* dicionario, char* palavra, char letra)
+int tela_inicial(Dicionario* dicionario, char* palavra)
 {
     int menu = 1;
     while (menu != 6)
     {
-        system("clear");
+        // system("clear");
         printf("Bem vindo ao dicionário!\n");
         printf("\n(1) Inserir palavra\n(2) Remover palavra\n(3) Buscar palavra\n(4) Imprimir palavras com uma letra\n(5) Imprimir dicionário\n(6) Sair\n\nDigite a opção que deseja: ");
         scanf("%d", &menu);
@@ -22,26 +23,26 @@ int tela_inicial(Dicionario* dicionario, char* palavra, char letra)
         {
         case 1:
             printf("\nDigite a palavra desejada: ");
-            scanf("%c", palavra);
+            scanf("%s", palavra);
             inserirDicionario(dicionario, palavra);
             break;
 
         case 2:
             printf("\nDigite a palavra desejada: ");
-            scanf("%c", palavra);
+            scanf("%s", palavra);
             removerDicionario(dicionario, palavra);
             break;
 
         case 3:
             printf("\nDigite a palavra desejada: ");
-            scanf("%c", palavra);
+            scanf("%s", palavra);
             buscarDicionario(dicionario, palavra);
             break;
 
         case 4:
             printf("\nDigite a letra desejada: ");
-            scanf("%c", &letra);
-            printaLetra(dicionario, letra);
+            scanf("%s", palavra);
+            printaLetra(dicionario, palavra[0]);
             break;
 
         case 5:
@@ -53,6 +54,6 @@ int tela_inicial(Dicionario* dicionario, char* palavra, char letra)
             exit(0);
             break;
         }
-        return 0;
     }
+    return 0;
 }

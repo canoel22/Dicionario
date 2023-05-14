@@ -17,12 +17,13 @@ void buscarDicionario(Dicionario* dicionario, char* palavra){
 
   if (no == NULL){
     printf ("A palavra não está aqui :(\n");
+
     return;
   }
 
   ResultadoBusca* noLista = buscarLista(no->palavras, palavra);
 
-  if (noLista->atual == no->palavras->cabeca || strcmp(palavra, noLista->atual->palavra) != 0){
+  if (noLista->atual == NULL){
     printf("A palavra não está aqui :(\n");
     return;
   }
@@ -43,7 +44,8 @@ void inserirDicionario(Dicionario* dicionario, char* palavra){
     }
 
     if (inserirLista(no->palavras, palavra)){
-            dicionario -> qtd += 1;
+      printf("A palavra foi inserida com sucesso!\n");
+      dicionario -> qtd += 1;
     }
 }
 

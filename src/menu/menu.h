@@ -8,6 +8,6 @@
 #include "../dicionario/dicionario.h"
 
 
-int tela_inicial(Dicionario* dicionario, char* palavra, char letra);
+int tela_inicial(Dicionario* dicionario, char* palavra);
 
 #endif
