@@ -32,19 +32,20 @@ void percurso_preordem(NoAVL* raiz);
 void percurso_emordem(NoAVL* raiz);
 
 NoAVL *buscar(NoAVL *aux, char letra);
-NoAVL* inserir(ArvoreAVL* arvore, NoAVL* novoNo, char letra );
-NoAVL* remover(ArvoreAVL* arvore, NoAVL *raiz, char letra);
+void inserir(ArvoreAVL *arvore, char letra);
+void remover(ArvoreAVL* arvore, NoAVL *raiz);
 
 void balanceamento(ArvoreAVL* arvore, NoAVL *no);
 void atualizaFB(NoAVL* no, int altura_esq, int altura_dir);
 void atualizaAltura(NoAVL* no, int altura_esq, int altura_dir);
 int altura(NoAVL* no);
 int maior(int a, int b);
-NoAVL* minimo(NoAVL* no);
+NoAVL* maximo(NoAVL* no);
 
 void rotacionarLL(ArvoreAVL* arvore, NoAVL *x);
 void rotacionarRR(ArvoreAVL* arvore, NoAVL *x);
 
+void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL* v);
 
 #endif
 

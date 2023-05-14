@@ -1,64 +1,68 @@
 #include "lista.h"
 
-//funções relacionadas ao uso de lista duplamente encadeada 
-
-/*************************************** Cria a lista *************************************************/
-
-Lista* criaLista()
-{
-    Lista* lista = (Lista*) malloc (sizeof(Lista));
-    lista -> cabeca = NULL;
-    lista -> tam = 0;
-    return lista;
+Lista* criarLista() {
+    Lista *l = (Lista *) malloc(sizeof(Lista));
+    l -> cabeca = (NoLista *) malloc(sizeof(NoLista));
+    l -> cabeca -> prox =  NULL;
+    return l;
 }
 
-/************************************* Cria o nó da lista ***********************************************/
+void inserirLista(Lista *lista, char *palavra) {
+    ResultadoBusca *res = buscarLista(lista, palavra);
+    NoLista *atual = res->atual;
+    NoLista *ant = res->ant;
 
-NoLista* criaNoLista(Lista* lista, char* palavra)
-{
-    NoLista* noLista = (NoLista*) malloc (sizeof(NoLista));
-    strcpy(noLista->palavra, palavra);
-    noLista -> ant = NULL;
-    noLista -> prox = NULL;
-    return noLista;
-}
-
-/************************************* Insere um nó da lista ***********************************************/
-
-void insereLista(Lista* lista, char* palavra){
-    NoLista *novaPalavra = criaNoLista(lista, palavra);
-    novaPalavra -> prox = lista -> cabeca -> prox;
-    lista -> cabeca -> prox -> ant = novaPalavra;
-    lista -> cabeca -> prox = novaPalavra;
-    novaPalavra -> ant = lista -> cabeca;
-}
-
-/************************************* Busca um nó da lista ***********************************************/
-
-NoLista *buscaLista(Lista* lista, char* palavra){
-    NoLista* aux = lista -> cabeca -> prox;
-    while (aux != lista -> cabeca && !(strcmp(aux->palavra, palavra))){
-        aux = aux -> prox;
-    }
-    return aux;
-}
-
-/************************************* Remove um nó da lista ***********************************************/
-
-void removeLista(Lista* lista, char* palavra){
-    NoLista* aux = buscaLista(lista, palavra);
-    aux -> ant -> prox = aux -> prox;
-    aux -> prox -> ant = aux -> ant;
-    free (aux);
-}
-
-/************************************* Insere um nó da lista ***********************************************/
-
-void printaLista(Lista* lista){
-    NoLista* aux = lista -> cabeca -> prox;
-    while (aux != lista -> cabeca){
-        printf("%s\n", aux->palavra);
-        aux = aux -> prox;
+    if (atual == NULL) {
+        NoLista *novoNo = (NoLista *) malloc(sizeof(NoLista));
+        strcpy(novoNo->palavra, palavra);
+        novoNo -> prox = ant->prox;
+        ant->prox = novoNo;
+        lista->tam += 1;
     }
 }
 
+void removerLista(Lista *lista, char *palavra) {
+    ResultadoBusca *res = buscarLista(lista, palavra);
+    NoLista *atual = res->atual;
+    NoLista *ant = res->ant;
+
+    if (atual != NULL) {
+        ant->prox = atual->prox;
+        free(atual);
+        lista -> tam -= 1;
+    }
+}
+
+ResultadoBusca* buscarLista(Lista *lista, char *palavra) {
+    NoLista *ant = lista -> cabeca;
+    NoLista *atual = NULL;
+    NoLista *aux = lista -> cabeca -> prox;
+
+    while (aux != NULL) {
+        if (strcmp(aux->palavra, palavra) < 0) {
+            ant = aux;
+            aux = aux->prox;
+        } else {
+            if (strcmp(aux->palavra, palavra) == 0) {
+                atual = aux;
+            }
+            break;
+        }
+    }
+
+    ResultadoBusca *resultado = (ResultadoBusca *) malloc(sizeof(ResultadoBusca));
+    resultado -> atual = atual;
+    resultado -> ant = ant;
+
+    return resultado;
+}
+
+void printarLista(Lista *lista) {
+    NoLista *atual = lista->cabeca->prox;
+
+    while (atual != NULL)
+    {
+        printf("%s\n", atual->palavra);
+        atual = atual->prox;
+    }
+}

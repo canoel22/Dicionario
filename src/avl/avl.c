@@ -19,7 +19,7 @@ NoAVL *criaNo(char letra)
     no->dir = NULL;
     no->esq = NULL;
     no->letra = letra;
-    no->palavras = criaLista();
+    no->palavras = criarLista();
     no->fb = 0;
     no->altura = 0;
     return no;
@@ -32,7 +32,10 @@ void percurso_preordem(NoAVL* raiz) {
     return;
   }
 
-  printf("[nó: %c, pai: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->pai->letra, raiz->fb, raiz->altura + 1);
+    if (raiz->pai != NULL)
+        printf("[nó: %c, pai: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->pai->letra, raiz->fb, raiz->altura + 1);
+    else
+        printf("[nó: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->fb, raiz->altura + 1);
   percurso_preordem(raiz -> esq);
   percurso_preordem(raiz -> dir);
 }
@@ -65,31 +68,35 @@ NoAVL *buscar(NoAVL *aux, char letra)
 }
 /********************************* Inserir ***********************************************/
 
-NoAVL *inserir(ArvoreAVL *arvore, NoAVL *novoNo, char letra)
+void inserir(ArvoreAVL *arvore, char letra)
 {
-    if (novoNo == NULL)
-    {
-        return criaNo(letra);
+    NoAVL *raiz = arvore -> raiz;
+    NoAVL *y = NULL;
+    NoAVL *novoNo = criaNo(letra);
+
+    while (raiz != NULL) {
+        y = raiz;
+        if (raiz->letra < letra) {
+            raiz = raiz -> dir;
+        } else {
+            raiz = raiz -> esq;
+        }
     }
 
-    if (letra < novoNo->letra)
-    {
-        novoNo->esq = inserir(arvore, novoNo->esq, letra);
-    }
-    else if (letra > novoNo->letra)
-    {
-        novoNo->dir = inserir(arvore, novoNo->dir, letra);
-    }
-    else
-    {
-        return novoNo;
+    novoNo->pai = y;
+
+    if (y == NULL) {
+        arvore->raiz = novoNo;
+    } else if (novoNo->letra < y->letra) {
+        y->esq = novoNo;
+    } else {
+        y->dir = novoNo;
     }
 
     NoAVL *aux = novoNo->pai;
-
+    
     while (aux != NULL)
     {
-
         int altura_esq = altura(aux->esq);
         int altura_dir = altura(aux->dir);
 
@@ -103,51 +110,34 @@ NoAVL *inserir(ArvoreAVL *arvore, NoAVL *novoNo, char letra)
 /********************************* Remover ***********************************************/
 // precisa ajustar porque está pra int e precisa ser pra palavra, sendo um pseudocódigo
 
-NoAVL *remover(ArvoreAVL *arvore, NoAVL *raiz, char letra)
+void remover(ArvoreAVL *arvore, NoAVL *no)
 {
-    if (raiz == NULL)
-    { // quando a letra não está na árvore
-        return raiz;
-    }
+    NoAVL *aux;
+    if (no -> esq == NULL) {
+        transplante(arvore, no, no -> dir);
+        aux = no->pai;
+    } else if (no -> dir == NULL) {
+        transplante(arvore, no, no -> esq);
+        aux = no->pai;
+    } else {
+        NoAVL* y = maximo(no->esq);
 
-    if (letra < raiz->letra)
-    { // vai pra subárvore da esq
-        raiz->esq = remover(arvore, raiz->esq, letra);
-    }
-    else if (letra > raiz->letra)
-    { // vai pra subárvore da dir
-        raiz->dir = remover(arvore, raiz->dir, letra);
-    }
-    else
-    {
-        if ((raiz->esq == NULL) || (raiz->dir == NULL))
-        { // com 1 ou 0 folhas
-            NoAVL *x = raiz->esq ? raiz->esq : raiz->dir;
-            if (x == NULL)
-            {
-                x = raiz;
-                raiz = NULL;
-            }
-            else
-            {
-                *raiz = *x;
-            }
-            free(x);
-        }
-        else //com duas folhas
-        {
-            NoAVL *x = minimo(raiz->esq);
-            raiz->letra = x -> letra;
-            raiz->palavras = x -> palavras;
-            raiz->dir = remover(arvore, raiz->esq, x->letra);
-        }
-    }
+        if (y -> pai != no){
+            aux = y->pai;
+            transplante(arvore, y, y -> esq);
+            y -> esq = no -> esq;
+            y -> esq -> pai = y;
 
-    NoAVL *aux = raiz->pai;
+        } else {
+            aux = y;
+        }
+        transplante(arvore, no, y);
+        y->dir = no -> dir;
+        y -> dir -> pai = y;
+   }
 
     while (aux != NULL)
     {
-
         int altura_esq = altura(aux->esq);
         int altura_dir = altura(aux->dir);
 
@@ -156,16 +146,35 @@ NoAVL *remover(ArvoreAVL *arvore, NoAVL *raiz, char letra)
         balanceamento(arvore, aux);
         aux = aux->pai;
     }
+    free(no);
 }
 
-/***************************** Faz o balanceamento *******************************************/
+/********************************* Transplante ***********************************************/
+// precisa ajustar porque está pra int e precisa ser pra palavra, sendo um pseudocódigo
 
-NoAVL* minimo(NoAVL* no){
+void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL* v)
+{
+    if (u -> pai == NULL){
+        arvore -> raiz = v;
+    } else if (u == u -> pai -> esq){
+        u -> pai -> esq = v;
+    } else{
+        u -> pai -> dir = v;
+    }
+
+    if (v != NULL){
+        v -> pai = u -> pai;
+    }
+}
+
+/***************************** Calcula o menor *******************************************/
+
+NoAVL* maximo(NoAVL* no){
     NoAVL* atual = no;
 
-    while (atual->esq != NULL)
+    while (atual->dir != NULL)
     {
-        atual = atual -> esq;
+        atual = atual -> dir;
     }
     return atual;
 }
@@ -175,19 +184,19 @@ void balanceamento(ArvoreAVL *arvore, NoAVL *no)
 {
     if (no->fb == 2)
     {
-        if (no->esq->fb == -1)
-        {
-            rotacionarLL(arvore, no->esq);
-        }
-        rotacionarRR(arvore, no);
-    }
-    else if (no->fb == -2)
-    {
-        if (no->dir->fb == 1)
+        if (no->esq != NULL && no->esq->fb < 0)
         {
             rotacionarRR(arvore, no->dir);
         }
         rotacionarLL(arvore, no);
+    }
+    else if (no->fb == -2)
+    {
+        if (no->dir != NULL && no->dir->fb > 0)
+        {
+            rotacionarLL(arvore, no->esq);
+        }
+        rotacionarRR(arvore, no);
     }
 }
 
@@ -254,6 +263,12 @@ void rotacionarLL(ArvoreAVL *arvore, NoAVL *x)
     }
     aux->esq = x;
     x->pai = aux;
+
+    int altura_esq = altura(x->esq);
+    int altura_dir = altura(x->dir);
+
+    atualizaAltura(x, altura_esq, altura_dir);
+    atualizaFB(x, altura_esq, altura_dir);
 }
 
 /********************************* Rotação RR ***********************************************/
@@ -283,4 +298,10 @@ void rotacionarRR(ArvoreAVL *arvore, NoAVL *x)
     }
     aux->dir = x;
     x->pai = aux;
+
+    int altura_esq = altura(x->esq);
+    int altura_dir = altura(x->dir);
+
+    atualizaAltura(x, altura_esq, altura_dir);
+    atualizaFB(x, altura_esq, altura_dir);
 }

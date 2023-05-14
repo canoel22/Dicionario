@@ -11,25 +11,27 @@
 typedef struct noLista
 {
     char palavra[50];
-    struct noLista *ant;
     struct noLista *prox;
 } NoLista;
 
 typedef struct lista
 {
-    NoLista *cabeca;
+    NoLista *cabeca; // cabeça como nó auxiliar
     int tam;
 } Lista;
 
+typedef struct resultadoBusca{
+    NoLista* ant;
+    NoLista* atual;
+} ResultadoBusca;
+
 /******************************* Funções ***********************************************/
 
-Lista *criaLista();
-NoLista *criaNoLista(Lista *lista, char *palavra);
+Lista* criarLista();
+void inserirLista(Lista *lista, char *palavra);
+void removerLista(Lista *lista, char *palavra);
+ResultadoBusca* buscarLista(Lista *lista, char *palavra);
+void printarLista(Lista *lista);
 
-void insereLista(Lista *lista, char *palavra);
-void removeLista(Lista *lista, char *palavra);
-NoLista *buscaLista(Lista *lista, char *palavra);
-
-void printaLista(Lista *lista);
 
 #endif
