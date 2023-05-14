@@ -17,7 +17,7 @@ void buscarDicionario(Dicionario* dicionario, char* palavra){
 
   if (no == NULL){
     printf ("A palavra não está aqui :(\n");
-
+    sleep(3);
     return;
   }
 
@@ -25,10 +25,12 @@ void buscarDicionario(Dicionario* dicionario, char* palavra){
 
   if (noLista->atual == NULL){
     printf("A palavra não está aqui :(\n");
+    sleep(3);
     return;
   }
   
   printf("A palavra foi encontrada! :)\n");
+  sleep(3);
 
 }
 
@@ -45,6 +47,7 @@ void inserirDicionario(Dicionario* dicionario, char* palavra){
 
     if (inserirLista(no->palavras, palavra)){
       printf("A palavra foi inserida com sucesso!\n");
+      sleep(3);
       dicionario -> qtd += 1;
     }
 }
@@ -57,11 +60,13 @@ void removerDicionario(Dicionario* dicionario, char* palavra){
 
     if (no == NULL){
         printf("A palavra não está no dicionário\n");
+        sleep(3);
         return;
     }
 
     if (removerLista(no->palavras, palavra)){
             printf("A palavra foi excluída com sucesso!\n");
+            sleep(3);
             dicionario -> qtd -= 1;
     }
 
@@ -75,8 +80,12 @@ void printaLetra(Dicionario* dicionario, char letra){
   if (no != NULL){
     printf("\nPalavras com a letra %c: ", no->letra);
     printarLista(no->palavras);
+    printf("\n\nDigite enter para sair.");
+    scanf("%*c");
+    getchar();
   } else{
     printf("\nA letra ainda não conta em nosso dicionário... Que tal adicioná-la?");
+    sleep(3);
   }
 }
 
@@ -84,4 +93,7 @@ void printaLetra(Dicionario* dicionario, char letra){
 
 void printaDicionario(Dicionario* dicionario){
   percurso_emordem(dicionario->arvore->raiz);
+  printf("\n\nDigite enter para sair.");
+  scanf("%*c");
+  getchar();
 }

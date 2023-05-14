@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 #include "menu.h"
 #include "../lista/lista.h"
 #include "../avl/avl.h"
@@ -14,7 +15,7 @@ int tela_inicial(Dicionario* dicionario, char* palavra)
     int menu = 1;
     while (menu != 6)
     {
-        // system("clear");
+        system("clear");
         printf("Bem vindo ao dicionário!\n");
         printf("\n(1) Inserir palavra\n(2) Remover palavra\n(3) Buscar palavra\n(4) Imprimir palavras com uma letra\n(5) Imprimir dicionário\n(6) Sair\n\nDigite a opção que deseja: ");
         scanf("%d", &menu);

@@ -1,11 +1,15 @@
 #include "lista.h"
 
+/********************************* Cria lista ***********************************************/
+
 Lista* criarLista() {
     Lista *l = (Lista *) malloc(sizeof(Lista));
     l -> cabeca = (NoLista *) malloc(sizeof(NoLista));
     l -> cabeca -> prox =  NULL;
     return l;
 }
+
+/********************************* Insere na lista ***********************************************/
 
 int inserirLista(Lista *lista, char *palavra) {
     ResultadoBusca *res = buscarLista(lista, palavra);
@@ -23,6 +27,8 @@ int inserirLista(Lista *lista, char *palavra) {
     return 0;
 }
 
+/********************************* Remove da lista ***********************************************/
+
 int removerLista(Lista *lista, char *palavra) {
     ResultadoBusca *res = buscarLista(lista, palavra);
     NoLista *atual = res->atual;
@@ -36,6 +42,8 @@ int removerLista(Lista *lista, char *palavra) {
     }
     return 0;
 }
+
+/********************************* Busca na lista ***********************************************/
 
 ResultadoBusca* buscarLista(Lista *lista, char *palavra) {
     NoLista *ant = lista -> cabeca;
@@ -60,6 +68,8 @@ ResultadoBusca* buscarLista(Lista *lista, char *palavra) {
 
     return resultado;
 }
+
+/********************************* Printa a lista ***********************************************/
 
 void printarLista(Lista *lista) {
     NoLista *atual = lista->cabeca->prox;
