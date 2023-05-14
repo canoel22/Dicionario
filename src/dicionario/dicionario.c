@@ -11,29 +11,29 @@ Dicionario* criaDicionario() {
 
 /******************************* Busca palavra no dicionário ***********************************************/
 
-void BuscarDicionario(Dicionario* dicionario, char* palavra){
+void buscarDicionario(Dicionario* dicionario, char* palavra){
   char letra = palavra[0];
   NoAVL* no = buscarAVL(dicionario->arvore->raiz, letra);
 
   if (no == NULL){
-    printf ("A palavra não está aqui :(");
+    printf ("A palavra não está aqui :(\n");
     return;
   }
 
-  NoLista* noLista = buscarLista(no->palavras, palavra);
+  ResultadoBusca* noLista = buscarLista(no->palavras, palavra);
 
-  if (noLista == no->palavras->cabeca || strcmp(palavra, noLista->palavra != 0)){
-    printf("A palavra não está aqui :(");
+  if (noLista->atual == no->palavras->cabeca || strcmp(palavra, noLista->atual->palavra) != 0){
+    printf("A palavra não está aqui :(\n");
     return;
   }
   
-  printf("A palavra foi encontrada! :)");
+  printf("A palavra foi encontrada! :)\n");
 
 }
 
 /******************************* Insere palavra no dicionário ***********************************************/
 
-void InserirDicionario(Dicionario* dicionario, char* palavra){
+void inserirDicionario(Dicionario* dicionario, char* palavra){
     char letra = palavra[0];
     NoAVL* no = buscarAVL(dicionario->arvore->raiz, letra);
 
@@ -49,7 +49,7 @@ void InserirDicionario(Dicionario* dicionario, char* palavra){
 
 /******************************* Remove palavra no dicionário ***********************************************/
 
-void RemoverDicionario(Dicionario* dicionario, char* palavra){
+void removerDicionario(Dicionario* dicionario, char* palavra){
   char letra = palavra[0];
     NoAVL* no = buscarAVL(dicionario->arvore->raiz, letra);
 
@@ -59,7 +59,7 @@ void RemoverDicionario(Dicionario* dicionario, char* palavra){
     }
 
     if (removerLista(no->palavras, palavra)){
-            printf("A palavra foi excluída com sucesso!");
+            printf("A palavra foi excluída com sucesso!\n");
             dicionario -> qtd -= 1;
     }
 

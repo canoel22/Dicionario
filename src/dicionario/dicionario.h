@@ -16,9 +16,9 @@ typedef struct dicionario {
 /******************************* Funções ***********************************************/
 
 Dicionario* criaDicionario();
-void BuscarDicionario(Dicionario* dicionario, char* palavra);
-void InserirDicionario(Dicionario* dicionario, char* palavra);
-void RemoverDicionario(Dicionario* dicionario, char* palavra);
+void buscarDicionario(Dicionario* dicionario, char* palavra);
+void inserirDicionario(Dicionario* dicionario, char* palavra);
+void removerDicionario(Dicionario* dicionario, char* palavra);
 void printaLetra(Dicionario* dicionario, char letra);
 void printaDicionario(Dicionario* dicionario);
 
