@@ -7,7 +7,7 @@ Lista* criarLista() {
     return l;
 }
 
-void inserirLista(Lista *lista, char *palavra) {
+int inserirLista(Lista *lista, char *palavra) {
     ResultadoBusca *res = buscarLista(lista, palavra);
     NoLista *atual = res->atual;
     NoLista *ant = res->ant;
@@ -18,10 +18,12 @@ void inserirLista(Lista *lista, char *palavra) {
         novoNo -> prox = ant->prox;
         ant->prox = novoNo;
         lista->tam += 1;
+        return 1;
     }
+    return 0;
 }
 
-void removerLista(Lista *lista, char *palavra) {
+int removerLista(Lista *lista, char *palavra) {
     ResultadoBusca *res = buscarLista(lista, palavra);
     NoLista *atual = res->atual;
     NoLista *ant = res->ant;
@@ -30,7 +32,9 @@ void removerLista(Lista *lista, char *palavra) {
         ant->prox = atual->prox;
         free(atual);
         lista -> tam -= 1;
+        return 1;
     }
+    return 0;
 }
 
 ResultadoBusca* buscarLista(Lista *lista, char *palavra) {

@@ -28,8 +28,8 @@ typedef struct resultadoBusca{
 /******************************* Funções ***********************************************/
 
 Lista* criarLista();
-void inserirLista(Lista *lista, char *palavra);
-void removerLista(Lista *lista, char *palavra);
+int inserirLista(Lista *lista, char *palavra);
+int removerLista(Lista *lista, char *palavra);
 ResultadoBusca* buscarLista(Lista *lista, char *palavra);
 void printarLista(Lista *lista);
 

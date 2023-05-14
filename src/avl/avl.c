@@ -54,7 +54,7 @@ void percurso_emordem(NoAVL* raiz) {
 
 /********************************* Buscar ***********************************************/
 
-NoAVL *buscar(NoAVL *aux, char letra)
+NoAVL *buscarAVL(NoAVL *aux, char letra)
 {
     if (aux == NULL || letra == aux->letra)
     {
@@ -62,13 +62,13 @@ NoAVL *buscar(NoAVL *aux, char letra)
     }
     if (letra < aux->letra)
     {
-        return buscar(aux->esq, letra);
+        return buscarAVL(aux->esq, letra);
     }
-    return buscar(aux->dir, letra);
+    return buscarAVL(aux->dir, letra);
 }
 /********************************* Inserir ***********************************************/
 
-void inserir(ArvoreAVL *arvore, char letra)
+void inserirAVL(ArvoreAVL *arvore, char letra)
 {
     NoAVL *raiz = arvore -> raiz;
     NoAVL *y = NULL;
@@ -108,9 +108,8 @@ void inserir(ArvoreAVL *arvore, char letra)
 }
 
 /********************************* Remover ***********************************************/
-// precisa ajustar porque está pra int e precisa ser pra palavra, sendo um pseudocódigo
 
-void remover(ArvoreAVL *arvore, NoAVL *no)
+void removerAVL(ArvoreAVL *arvore, NoAVL *no)
 {
     NoAVL *aux;
     if (no -> esq == NULL) {

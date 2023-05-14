@@ -31,9 +31,9 @@ NoAVL* criaNo(char letra);
 void percurso_preordem(NoAVL* raiz);
 void percurso_emordem(NoAVL* raiz);
 
-NoAVL *buscar(NoAVL *aux, char letra);
-void inserir(ArvoreAVL *arvore, char letra);
-void remover(ArvoreAVL* arvore, NoAVL *raiz);
+NoAVL *buscarAVL(NoAVL *aux, char letra);
+void inserirAVL(ArvoreAVL *arvore, char letra);
+void removerAVL(ArvoreAVL* arvore, NoAVL *raiz);
 
 void balanceamento(ArvoreAVL* arvore, NoAVL *no);
 void atualizaFB(NoAVL* no, int altura_esq, int altura_dir);
