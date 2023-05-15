@@ -25,20 +25,6 @@ NoAVL *criaNo(char letra)
     return no;
 }
 
-/******************************* Printa a árvore em pre ordem ********************************************/
-
-void percurso_preordem(NoAVL* raiz) {
-  if (raiz == NULL){
-    return;
-  }
-
-    if (raiz->pai != NULL)
-        printf("[nó: %c, pai: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->pai->letra, raiz->fb, raiz->altura + 1);
-    else
-        printf("[nó: %c, fb: %d, altura: %d]\n",raiz->letra, raiz->fb, raiz->altura + 1);
-  percurso_preordem(raiz -> esq);
-  percurso_preordem(raiz -> dir);
-}
 
 /******************************* Printa a árvore em ordem ********************************************/
 

@@ -13,15 +13,15 @@ Lista* criarLista() {
 
 int inserirLista(Lista *lista, char *palavra) {
     ResultadoBusca *res = buscarLista(lista, palavra);
-    NoLista *atual = res->atual;
-    NoLista *ant = res->ant;
+    NoLista *atual = res -> atual;
+    NoLista *ant = res -> ant;
 
     if (atual == NULL) {
         NoLista *novoNo = (NoLista *) malloc(sizeof(NoLista));
         strcpy(novoNo->palavra, palavra);
-        novoNo -> prox = ant->prox;
+        novoNo -> prox = ant -> prox;
         ant->prox = novoNo;
-        lista->tam += 1;
+        lista -> tam += 1;
         return 1;
     }
     return 0;

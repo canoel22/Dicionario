@@ -28,7 +28,6 @@ typedef struct arvoreAVL
 ArvoreAVL* criaArvore();
 NoAVL* criaNo(char letra);
 
-void percurso_preordem(NoAVL* raiz);
 void percurso_emordem(NoAVL* raiz);
 
 NoAVL *buscarAVL(NoAVL *aux, char letra);
