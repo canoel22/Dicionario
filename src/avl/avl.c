@@ -152,8 +152,10 @@ void removerAVL(ArvoreAVL *arvore, NoAVL *no)
     free(no);
 }
 
-/********************************* Transplante ***********************************************/
-
+/********************************* Transplante ***********************************************
+Para movimentar subárvores dentro da árvore de busca binária, definimos uma subrotina TRANSPLANT, que substitui
+uma subárvore como um filho de seu pai por uma outra subárvore. 
+*/
 void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL *v)
 {
     if (u->pai == NULL)
