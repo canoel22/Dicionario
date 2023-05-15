@@ -175,7 +175,7 @@ void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL *v)
     }
 }
 
-/***************************** Calcula o menor *******************************************/
+/***************************** Calcula o maior *******************************************/
 
 NoAVL *maximo(NoAVL *no)
 {

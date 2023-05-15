@@ -204,7 +204,7 @@ void atualizaFB(NoAVL *no, int altura_esq, int altura_dir)
 {
     no->fb = altura_dir - altura_esq;
 }
-/***************************** Calcula o menor *******************************************/
+/***************************** Calcula o maior *******************************************/
 
 NoAVL *maximo(NoAVL *no)
 {
