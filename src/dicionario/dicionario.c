@@ -78,7 +78,7 @@ void printaLetra(Dicionario* dicionario, char letra){
   NoAVL* no = buscarAVL(dicionario->arvore->raiz, letra);
 
   if (no != NULL){
-    printf("\nPalavras com a letra %c: ", no->letra);
+    printf("\nPalavras com a letra %c: \n", no->letra);
     printarLista(no->palavras);
     printf("\n\nDigite enter para sair.");
     scanf("%*c");

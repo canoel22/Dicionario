@@ -48,7 +48,7 @@ void percurso_emordem(NoAVL* raiz) {
   }
 
   percurso_emordem(raiz -> esq);
-  printf("Nó: %c\n",raiz->letra);
+  printf("\nNó: %c\n",raiz->letra);
   printarLista(raiz->palavras);
   percurso_emordem(raiz -> dir);
 }
