@@ -25,18 +25,19 @@ NoAVL *criaNo(char letra)
     return no;
 }
 
-
 /******************************* Printa a árvore em ordem ********************************************/
 
-void percurso_emordem(NoAVL* raiz) {
-  if (raiz == NULL){
-    return;
-  }
+void percurso_emordem(NoAVL *raiz)
+{
+    if (raiz == NULL)
+    {
+        return;
+    }
 
-  percurso_emordem(raiz -> esq);
-  printf("\nNó: %c\n",raiz->letra);
-  printarLista(raiz->palavras);
-  percurso_emordem(raiz -> dir);
+    percurso_emordem(raiz->esq);
+    printf("\nNó: %c\n", raiz->letra);
+    printarLista(raiz->palavras);
+    percurso_emordem(raiz->dir);
 }
 
 /********************************* Buscar ***********************************************/
@@ -57,31 +58,40 @@ NoAVL *buscarAVL(NoAVL *aux, char letra)
 
 void inserirAVL(ArvoreAVL *arvore, char letra)
 {
-    NoAVL *raiz = arvore -> raiz;
+    NoAVL *raiz = arvore->raiz;
     NoAVL *y = NULL;
     NoAVL *novoNo = criaNo(letra);
 
-    while (raiz != NULL) {
+    while (raiz != NULL)
+    {
         y = raiz;
-        if (raiz->letra < letra) {
-            raiz = raiz -> dir;
-        } else {
-            raiz = raiz -> esq;
+        if (raiz->letra < letra)
+        {
+            raiz = raiz->dir;
+        }
+        else
+        {
+            raiz = raiz->esq;
         }
     }
 
     novoNo->pai = y;
 
-    if (y == NULL) {
+    if (y == NULL)
+    {
         arvore->raiz = novoNo;
-    } else if (novoNo->letra < y->letra) {
+    }
+    else if (novoNo->letra < y->letra)
+    {
         y->esq = novoNo;
-    } else {
+    }
+    else
+    {
         y->dir = novoNo;
     }
 
     NoAVL *aux = novoNo->pai;
-    
+
     while (aux != NULL)
     {
         int altura_esq = altura(aux->esq);
@@ -99,28 +109,35 @@ void inserirAVL(ArvoreAVL *arvore, char letra)
 void removerAVL(ArvoreAVL *arvore, NoAVL *no)
 {
     NoAVL *aux;
-    if (no -> esq == NULL) {
-        transplante(arvore, no, no -> dir);
+    if (no->esq == NULL)
+    {
+        transplante(arvore, no, no->dir);
         aux = no->pai;
-    } else if (no -> dir == NULL) {
-        transplante(arvore, no, no -> esq);
+    }
+    else if (no->dir == NULL)
+    {
+        transplante(arvore, no, no->esq);
         aux = no->pai;
-    } else {
-        NoAVL* y = maximo(no->esq);
+    }
+    else
+    {
+        NoAVL *y = maximo(no->esq);
 
-        if (y -> pai != no){
+        if (y->pai != no)
+        {
             aux = y->pai;
-            transplante(arvore, y, y -> esq);
-            y -> esq = no -> esq;
-            y -> esq -> pai = y;
-
-        } else {
+            transplante(arvore, y, y->esq);
+            y->esq = no->esq;
+            y->esq->pai = y;
+        }
+        else
+        {
             aux = y;
         }
         transplante(arvore, no, y);
-        y->dir = no -> dir;
-        y -> dir -> pai = y;
-   }
+        y->dir = no->dir;
+        y->dir->pai = y;
+    }
 
     while (aux != NULL)
     {
@@ -138,29 +155,36 @@ void removerAVL(ArvoreAVL *arvore, NoAVL *no)
 /********************************* Transplante ***********************************************/
 // precisa ajustar porque está pra int e precisa ser pra palavra, sendo um pseudocódigo
 
-void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL* v)
+void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL *v)
 {
-    if (u -> pai == NULL){
-        arvore -> raiz = v;
-    } else if (u == u -> pai -> esq){
-        u -> pai -> esq = v;
-    } else{
-        u -> pai -> dir = v;
+    if (u->pai == NULL)
+    {
+        arvore->raiz = v;
+    }
+    else if (u == u->pai->esq)
+    {
+        u->pai->esq = v;
+    }
+    else
+    {
+        u->pai->dir = v;
     }
 
-    if (v != NULL){
-        v -> pai = u -> pai;
+    if (v != NULL)
+    {
+        v->pai = u->pai;
     }
 }
 
 /***************************** Calcula o menor *******************************************/
 
-NoAVL* maximo(NoAVL* no){
-    NoAVL* atual = no;
+NoAVL *maximo(NoAVL *no)
+{
+    NoAVL *atual = no;
 
     while (atual->dir != NULL)
     {
-        atual = atual -> dir;
+        atual = atual->dir;
     }
     return atual;
 }
