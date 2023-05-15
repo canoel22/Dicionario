@@ -153,7 +153,6 @@ void removerAVL(ArvoreAVL *arvore, NoAVL *no)
 }
 
 /********************************* Transplante ***********************************************/
-// precisa ajustar porque está pra int e precisa ser pra palavra, sendo um pseudocódigo
 
 void transplante(ArvoreAVL *arvore, NoAVL *u, NoAVL *v)
 {
